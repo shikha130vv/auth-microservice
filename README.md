@@ -1,4 +1,4 @@
-# Bitgrit auth API
+# Authentication Microservice
 
 To build api image run this command in the `auth-microservice` folder:
 ```
@@ -24,7 +24,7 @@ To run the app locally, run below in auth-mcroservice folder
 export PYTHONPATH=.
 export FLASK_APP=main.py
 flask db init
-flask db migrate
+flask db migrate 
 flask db upgrade
 flask run
 ```
