@@ -1,0 +1,7 @@
+.pytest_cache/
+*.json
+manifests/overlays/staging
+migrations/
+.idea
+__pycache__
+.DS_Store

@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: auth-api
+  namespace: auth-microservice
+spec:
+  template:
+    metadata:
+      labels:
+        app: auth-api
+    spec:
+      containers:
+        - name: auth-api
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.16
+          securityContext:
+            runAsUser: 2
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: cloudsql-gcp-sa
+              mountPath: /secrets/cloudsql
+              readOnly: true
+      volumes:
+        - name: cloudsql-gcp-sa
+          secret:
+            secretName: cloudsql-gcp-sa

@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: auth-api
+  namespace: auth-microservice
+spec:
+  template:
+    metadata:
+      labels:
+        app: auth-api
+    spec:
+      containers:
+        - name: auth-api
+          image: gcr.io/<project-id>/auth-microservice
+          env:
+            - name: DEBUG
+              value: true
+            - name: SQLALCHEMY_DATABASE_URI
+              value: mysql+pymysql://root:password@127.0.0.1:3306/auth-microservice-dev
+        - name: cloudsql-proxy
+          command: ["/cloud_sql_proxy",
+            "-instances=<cloudsql instance name>=tcp:3306",
+            "-ip_address_types=PRIVATE",
+            "-credential_file=/secrets/cloudsql/cloudsql-gcp-sa.json"]

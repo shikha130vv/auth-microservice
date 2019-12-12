@@ -1,0 +1,29 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: auth-api
+  namespace: auth-microservice
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /auth/register
+            backend:
+              serviceName: auth-api
+              servicePort: 80
+          - path: /auth/login
+            backend:
+              serviceName: auth-api
+              servicePort: 80
+          - path: /auth/logout
+            backend:
+              serviceName: auth-api
+              servicePort: 80
+          - path: /auth/authorize
+            backend:
+              serviceName: auth-api
+              servicePort: 80
